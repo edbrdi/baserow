@@ -8,7 +8,7 @@
       ref="scrollbars"
       horizontal="getHorizontalScrollbarElement"
       vertical="getVerticalScrollbarElement"
-      :style="{ left: leftWidth + 'px' }"
+      :style="{ left: hasNotEnoughSpace ? 0 : leftWidth + 'px' }"
       @vertical="verticalScroll"
       @horizontal="horizontalScroll"
     ></Scrollbars>
@@ -24,7 +24,7 @@
       :include-grid-view-identifier-dropdown="true"
       :read-only="readOnly"
       :store-prefix="storePrefix"
-      :style="{ width: leftWidth + 'px' }"
+      :style="{ width: hasNotEnoughSpace ? 0 : leftWidth + 'px' }"
       @refresh="$emit('refresh', $event)"
       @field-created="fieldCreated"
       @row-hover="setRowHover($event.row, $event.value)"
@@ -52,9 +52,10 @@
     <div
       ref="divider"
       class="grid-view__divider"
-      :style="{ left: leftWidth + 'px' }"
+      :style="{ left: hasNotEnoughSpace ? 0 : leftWidth + 'px' }"
     ></div>
     <GridViewFieldWidthHandle
+      v-if="!hasNotEnoughSpace"
       class="grid-view__divider-width"
       :style="{ left: leftWidth + 'px' }"
       :grid="view"
@@ -66,15 +67,18 @@
     <GridViewSection
       ref="right"
       class="grid-view__right"
+      :class="{ 'grid-view__right--has-not-enough-space': hasNotEnoughSpace }"
       :fields="visibleFields"
       :decorations-by-place="decorationsByPlace"
       :table="table"
       :view="view"
       :include-add-field="true"
+      :include-row-details="hasNotEnoughSpace"
+      :include-grid-view-identifier-dropdown="hasNotEnoughSpace"
       :can-order-fields="true"
       :read-only="readOnly"
       :store-prefix="storePrefix"
-      :style="{ left: leftWidth + 'px' }"
+      :style="{ left: hasNotEnoughSpace ? 0 : leftWidth + 'px' }"
       @refresh="$emit('refresh', $event)"
       @field-created="fieldCreated"
       @row-hover="setRowHover($event.row, $event.value)"
@@ -93,6 +97,9 @@
       @scroll="scroll($event.pixelY, $event.pixelX)"
     >
       <template #foot>
+        <div v-if="hasNotEnoughSpace" class="grid-view__foot-info">
+          {{ $tc('gridView.rowCount', count, { count }) }}
+        </div>
         <div v-if="publicGrid" class="grid-view__foot-logo">
           <a
             href="https://baserow.io"
@@ -269,6 +276,7 @@ export default {
       selectedRow: null,
       deletingRow: false,
       showHiddenFieldsInRowModal: false,
+      windowInnerWidth: 0,
     }
   },
   computed: {
@@ -297,6 +305,7 @@ export default {
       return this.fields.filter((field) => field.primary)
     },
     rightFields() {
+      if (this.hasNotEnoughSpace) return this.fields
       return this.fields.filter((field) => !field.primary)
     },
     leftFieldsWidth() {
@@ -307,6 +316,9 @@ export default {
     },
     leftWidth() {
       return this.leftFieldsWidth + this.gridViewRowDetailsWidth
+    },
+    hasNotEnoughSpace() {
+      return this.windowInnerWidth < 800
     },
   },
   watch: {
@@ -348,6 +360,7 @@ export default {
         this.storePrefix + 'view/grid/setWindowHeight',
         height
       )
+      this.windowInnerWidth = window.innerWidth
     }
     this.$el.resizeEvent()
     window.addEventListener('resize', this.$el.resizeEvent)

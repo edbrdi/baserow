@@ -3,6 +3,7 @@
 exports[`GridViewRows component with decoration Default component 1`] = `
 <div
   class="context"
+  style="width: auto; white-space: nowrap; transform: none;"
 >
   <div
     class="decorator-list"
@@ -60,6 +61,7 @@ exports[`GridViewRows component with decoration Should show cant add decorator t
   </div>
   <div
     class="context"
+    style="width: auto; white-space: nowrap; transform: none;"
   >
     <div
       class="decorator-list"
@@ -118,6 +120,7 @@ exports[`GridViewRows component with decoration Should show unavailable decorato
   </div>
   <div
     class="context"
+    style="width: auto; white-space: nowrap; transform: none;"
   >
     <div
       class="decorator-list"
@@ -171,6 +174,7 @@ exports[`GridViewRows component with decoration Should show unavailable decorato
 exports[`GridViewRows component with decoration View with decoration configured 1`] = `
 <div
   class="context"
+  style="width: auto; white-space: nowrap; transform: none;"
 >
   <div
     class="decorator-context"

@@ -115,9 +115,23 @@ export default {
             )
 
         // Set the calculated positions of the context.
-        for (const key in css) {
-          const value = css[key] !== null ? Math.ceil(css[key]) + 'px' : 'auto'
-          this.$el.style[key] = value
+        if (window.innerWidth < 800) {
+          this.$el.style.width = '90%'
+          this.$el.style.left = '50%'
+          this.$el.style.whiteSpace = 'normal'
+          this.$el.style.transform = 'translateX(-50%)'
+          const value = css.top !== null ? Math.ceil(css.top) + 'px' : 'auto'
+          this.$el.style.top = value
+        } else {
+          this.$el.style.width = 'auto'
+          this.$el.style.left = 'auto'
+          this.$el.style.whiteSpace = 'nowrap'
+          this.$el.style.transform = 'none'
+          for (const key in css) {
+            const value =
+              css[key] !== null ? Math.ceil(css[key]) + 'px' : 'auto'
+            this.$el.style[key] = value
+          }
         }
         this.updatedOnce = true
       }

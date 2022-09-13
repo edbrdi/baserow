@@ -543,6 +543,8 @@ exports[`Public View Page Tests Can see a publicly shared grid view 1`] = `
               <div
                 class="grid-view__foot"
               >
+                <!---->
+                 
                 <div
                   class="grid-view__foot-logo"
                 >

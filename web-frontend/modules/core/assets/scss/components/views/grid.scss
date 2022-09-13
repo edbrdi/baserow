@@ -271,6 +271,12 @@
   &.grid-view__column--filtered::after {
     background-color: rgba($color-success-100, 0.5);
   }
+
+  &:first-child {
+    .grid-view__right--has-not-enough-space & {
+      border-right: none;
+    }
+  }
 }
 
 .grid-view__row-info {
