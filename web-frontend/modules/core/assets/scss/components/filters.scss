@@ -22,7 +22,9 @@
 }
 
 .filters__items {
-  min-width: 540px;
+  @media (min-width: 800px) {
+    min-width: 540px;
+  }
 }
 
 .filters__item {
@@ -36,6 +38,34 @@
   margin-left: 5px;
   column-gap: 10px;
 
+  @media (max-width: 799px) {
+    display: flex;
+    flex-wrap: wrap;
+
+    & > .filters__remove {
+      width: 20px;
+    }
+
+    & > .filters__operator {
+      width: 72px;
+    }
+
+    & > .filters__field,
+    & > .filters__type,
+    & > .filters__value {
+      width: calc(100% - 60px);
+      margin: 5px 30px auto;
+
+      .dropdown__items {
+        width: 100%;
+      }
+    }
+
+    & > .filters__value {
+      flex: none;
+    }
+  }
+
   &:not(:last-child) {
     margin-bottom: 6px;
   }
@@ -47,6 +77,10 @@
 
       @include loading(14px);
       @include absolute(50%, auto, 0, -2px);
+
+      @media (max-width: 799px) {
+        top: 20px;
+      }
     }
   }
 }
