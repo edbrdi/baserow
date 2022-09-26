@@ -89,6 +89,7 @@ import galleryStore from '@baserow/modules/database/store/view/gallery'
 import formStore from '@baserow/modules/database/store/view/form'
 import rowModal from '@baserow/modules/database/store/rowModal'
 import publicStore from '@baserow/modules/database/store/view/public'
+import rowModalNavigation from '@baserow/modules/database/store/rowModalNavigation'
 
 import { registerRealtimeEvents } from '@baserow/modules/database/realtime'
 import { CSVTableExporterType } from '@baserow/modules/database/exporterTypes'
@@ -145,6 +146,7 @@ import {
   BaserowLeast,
   BaserowGreatest,
   BaserowRegexReplace,
+  BaserowLink,
   BaserowTrim,
   BaserowRight,
   BaserowLeft,
@@ -152,11 +154,15 @@ import {
   BaserowFilter,
   BaserowTrunc,
   BaserowRound,
+  BaserowButton,
+  BaserowGetLinkUrl,
+  BaserowGetLinkLabel,
 } from '@baserow/modules/database/formula/functions'
 import {
   BaserowFormulaArrayType,
   BaserowFormulaBooleanType,
   BaserowFormulaCharType,
+  BaserowFormulaLinkType,
   BaserowFormulaDateIntervalType,
   BaserowFormulaDateType,
   BaserowFormulaInvalidType,
@@ -194,6 +200,7 @@ import nl from '@baserow/modules/database/locales/nl.json'
 import de from '@baserow/modules/database/locales/de.json'
 import es from '@baserow/modules/database/locales/es.json'
 import it from '@baserow/modules/database/locales/it.json'
+import pl from '@baserow/modules/database/locales/pl.json'
 
 export default (context) => {
   const { store, app, isDev } = context
@@ -207,12 +214,14 @@ export default (context) => {
     i18n.mergeLocaleMessage('de', de)
     i18n.mergeLocaleMessage('es', es)
     i18n.mergeLocaleMessage('it', it)
+    i18n.mergeLocaleMessage('pl', pl)
   }
 
   store.registerModule('table', tableStore)
   store.registerModule('view', viewStore)
   store.registerModule('field', fieldStore)
   store.registerModule('rowModal', rowModal)
+  store.registerModule('rowModalNavigation', rowModalNavigation)
   store.registerModule('page/view/grid', gridStore)
   store.registerModule('page/view/gallery', galleryStore)
   store.registerModule('page/view/form', formStore)
@@ -421,6 +430,11 @@ export default (context) => {
   app.$registry.register('formula_function', new BaserowFilter(context))
   app.$registry.register('formula_function', new BaserowTrunc(context))
   app.$registry.register('formula_function', new BaserowRound(context))
+  // Link functions
+  app.$registry.register('formula_function', new BaserowLink(context))
+  app.$registry.register('formula_function', new BaserowButton(context))
+  app.$registry.register('formula_function', new BaserowGetLinkUrl(context))
+  app.$registry.register('formula_function', new BaserowGetLinkLabel(context))
 
   // Formula Types
   app.$registry.register('formula_type', new BaserowFormulaTextType(context))
@@ -439,6 +453,7 @@ export default (context) => {
     'formula_type',
     new BaserowFormulaSingleSelectType(context)
   )
+  app.$registry.register('formula_type', new BaserowFormulaLinkType(context))
 
   // File preview types
   app.$registry.register('preview', new ImageFilePreview(context))

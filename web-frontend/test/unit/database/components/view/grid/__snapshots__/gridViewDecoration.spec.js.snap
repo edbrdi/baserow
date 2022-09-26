@@ -59,9 +59,11 @@ exports[`GridView component with decoration Default component with first_cell de
             <div
               class="grid-view__description-name"
             >
-              
-      Name
-    
+              <span>
+                
+        Name
+      
+              </span>
             </div>
              
             <!---->
@@ -262,9 +264,11 @@ exports[`GridView component with decoration Default component with first_cell de
             <div
               class="grid-view__description-name"
             >
-              
-      Surname
-    
+              <span>
+                
+        Surname
+      
+              </span>
             </div>
              
             <!---->
@@ -302,9 +306,11 @@ exports[`GridView component with decoration Default component with first_cell de
             <div
               class="grid-view__description-name"
             >
-              
-      Address
-    
+              <span>
+                
+        Address
+      
+              </span>
             </div>
              
             <!---->
@@ -540,9 +546,11 @@ exports[`GridView component with decoration Default component with row wrapper d
             <div
               class="grid-view__description-name"
             >
-              
-      Name
-    
+              <span>
+                
+        Name
+      
+              </span>
             </div>
              
             <!---->
@@ -689,9 +697,11 @@ exports[`GridView component with decoration Default component with row wrapper d
             <div
               class="grid-view__description-name"
             >
-              
-      Surname
-    
+              <span>
+                
+        Surname
+      
+              </span>
             </div>
              
             <!---->
@@ -729,9 +739,11 @@ exports[`GridView component with decoration Default component with row wrapper d
             <div
               class="grid-view__description-name"
             >
-              
-      Address
-    
+              <span>
+                
+        Address
+      
+              </span>
             </div>
              
             <!---->
@@ -936,9 +948,11 @@ exports[`GridView component with decoration Default component with unavailable d
             <div
               class="grid-view__description-name"
             >
-              
-      Name
-    
+              <span>
+                
+        Name
+      
+              </span>
             </div>
              
             <!---->
@@ -1133,9 +1147,11 @@ exports[`GridView component with decoration Default component with unavailable d
             <div
               class="grid-view__description-name"
             >
-              
-      Surname
-    
+              <span>
+                
+        Surname
+      
+              </span>
             </div>
              
             <!---->
@@ -1173,9 +1189,11 @@ exports[`GridView component with decoration Default component with unavailable d
             <div
               class="grid-view__description-name"
             >
-              
-      Address
-    
+              <span>
+                
+        Address
+      
+              </span>
             </div>
              
             <!---->

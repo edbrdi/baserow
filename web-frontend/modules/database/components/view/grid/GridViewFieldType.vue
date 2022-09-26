@@ -19,7 +19,9 @@
         <i class="fas" :class="'fa-' + field._.type.iconClass"></i>
       </div>
       <div class="grid-view__description-name">
-        {{ field.name }}
+        <span ref="quickEditLink" @dblclick="handleQuickEdit()">
+          {{ field.name }}
+        </span>
       </div>
       <div v-if="field.error" class="grid-view__description-icon-error">
         <i v-tooltip="field.error" class="fas fa-exclamation-triangle"></i>
@@ -232,6 +234,20 @@ export default {
       this.$emit('move-field', $event)
       this.$refs.context.hide()
     },
+    async handleQuickEdit() {
+      if (this.readOnly) return false
+      await this.$refs.context.toggle(
+        this.$refs.quickEditLink,
+        'bottom',
+        'left',
+        0
+      )
+      this.$refs.context.showUpdateFieldContext()
+    },
+    quickEditField($event) {
+      this.$emit('updated', $event)
+      this.$refs.context.hide()
+    },
     async createFilter(event, view, field) {
       // Prevent the event from propagating to the body so that it does not close the
       // view filter context menu right after it has been opened. This is due to the
@@ -301,7 +317,6 @@ export default {
       }
     },
     startDragging(event, field) {
-      event.preventDefault()
       this.$emit('dragging', { field, event })
     },
     getSortIndicator(field, index) {

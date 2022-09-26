@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "baserow.ws",
     "baserow.contrib.database",
     "baserow_premium",
+    "baserow_enterprise",
 ]
 
 BASEROW_FULL_HEALTHCHECKS = os.getenv("BASEROW_FULL_HEALTHCHECKS", None)
@@ -245,6 +246,7 @@ LANGUAGES = [
     ("de", "German"),
     ("es", "Spanish"),
     ("it", "Italian"),
+    ("pl", "Polish"),
 ]
 
 TIME_ZONE = "UTC"
@@ -301,7 +303,7 @@ SPECTACULAR_SETTINGS = {
         "name": "MIT",
         "url": "https://gitlab.com/bramw/baserow/-/blob/master/LICENSE",
     },
-    "VERSION": "1.12.0",
+    "VERSION": "1.12.1",
     "SERVE_INCLUDE_SCHEMA": False,
     "TAGS": [
         {"name": "Settings"},

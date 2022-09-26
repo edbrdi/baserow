@@ -13,7 +13,7 @@ from baserow.contrib.database.fields.models import (
     PhoneNumberField,
     URLField,
 )
-from baserow.contrib.database.fields.registries import field_type_registry
+from baserow.contrib.database.fields.registries import FieldType, field_type_registry
 from baserow.contrib.database.rows.handler import RowHandler
 from baserow.test_utils.helpers import setup_interesting_test_table
 
@@ -556,6 +556,8 @@ def test_human_readable_values(data_fixture):
         "formula_int": "1",
         "formula_singleselect": "",
         "formula_text": "test FORMULA",
+        "formula_link_url_only": "https://google.com",
+        "formula_link_with_label": "label (https://google.com)",
         "lookup": "",
     }
     assert results == {
@@ -599,6 +601,8 @@ def test_human_readable_values(data_fixture):
         "formula_int": "1",
         "formula_singleselect": "A",
         "formula_text": "test FORMULA",
+        "formula_link_url_only": "https://google.com",
+        "formula_link_with_label": "label (https://google.com)",
         "lookup": "linked_row_1, linked_row_2, ",
     }
 
@@ -658,3 +662,24 @@ def test_import_export_lookup_field(data_fixture, api_client):
     assert lookup_field_imported.target_field_name == lookup.target_field_name
 
     assert id_mapping["database_fields"][lookup.id] == lookup_field_imported.id
+
+
+def test_field_types_with_get_order_have_get_value_for_filter():
+    for field_type in field_type_registry.get_all():
+        if field_type.__class__.get_order.__code__ is not FieldType.get_order.__code__:
+            assert (
+                field_type.__class__.get_value_for_filter.__code__
+                is not FieldType.get_value_for_filter.__code__
+            )
+
+
+def test_field_types_with_get_value_for_filter_have_get_order():
+    for field_type in field_type_registry.get_all():
+        if (
+            field_type.__class__.get_value_for_filter.__code__
+            is not FieldType.get_value_for_filter.__code__
+        ):
+            assert (
+                field_type.__class__.get_order.__code__
+                is not FieldType.get_order.__code__
+            )
